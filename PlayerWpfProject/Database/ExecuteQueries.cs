@@ -16,19 +16,19 @@ namespace PlayerWpfProject.Database
 
         public void RegisterUser(User user)
         {
-            string query = $"INSERT INTO wpfplayer.users(username, email, password) VALUES('{user.Username}', '{user.Email}', '{user.Password})';";
+            string query = $"INSERT INTO wpfplayer.users(username, email, password) VALUES('{user.Username}', '{user.Email}', '{user.Password}')";
             RunQuery(query);
         }
 
         public void DeleteUser(string username)
         {
-            string query = $"DELETE FROM wpfplayer.users WHERE username='{username}';";
+            string query = $"DELETE FROM wpfplayer.users WHERE username='{username}'";
             RunQuery(query);
         }
 
         public void UpdateUser(User user)
         {
-            string query = $"UPDATE wpfplayer.users SET username='{user.Username}', email='{user.Email}', password='{user.Password}' WHERE username='{user.Username}';";
+            string query = $"UPDATE wpfplayer.users SET username='{user.Username}', email='{user.Email}', password='{user.Password}' WHERE username='{user.Username}'";
             RunQuery(query);
         }
 
