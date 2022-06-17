@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using MySql.Data.MySqlClient;
 using PlayerWpfProject.Model;
+using PlayerWpfProject.Views;
 
 namespace PlayerWpfProject.Database
 {
@@ -32,6 +33,26 @@ namespace PlayerWpfProject.Database
             RunQuery(query);
         }
 
+        public void loginUser(string username, string password)
+        {
+            MySqlCommand command = new MySqlCommand();
+            connection.Open();
+            command.Connection = connection;
+            command.CommandText = $"SELECT * FROM wpfplayer.users WHERE username='{username}' AND password='{password}'";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                PlayerWindow pw = new PlayerWindow();
+                Application.Current.Windows[0].Close();
+                pw.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Wrong username or password!");
+            }
+            connection.Close();
+        }
+
         public void RunQuery(string query)
         {
             try
@@ -40,11 +61,11 @@ namespace PlayerWpfProject.Database
                 MySqlCommand command = new MySqlCommand(query, connection);
                 if (command.ExecuteNonQuery() == 1)
                 {
-                    MessageBox.Show("Success!");
+                    MessageBox.Show("Success");
                 }
                 else
                 {
-                    MessageBox.Show("Error");
+                    MessageBox.Show("Something went wrong");
                 }
             }
             catch (Exception ex)
